@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+var pty = require('pty.js');
+var path = require('path');
+
+var term = pty.spawn(path.join(__dirname,'gars-helper'), [process.argv[2]], {
+  env: process.env
+});
+
+term.on('error',function(err) {
+  console.log(err);
+  process.exit(-1);
+});
+
+term.pipe(process.stdout);
